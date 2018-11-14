@@ -1,0 +1,7 @@
+package chester.interfaces;
+
+public interface Withdrawable {
+
+	//Declare methods 
+	public void withdraw(double amount);
+}
