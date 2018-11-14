@@ -1,0 +1,53 @@
+package chester.account;
+import chester.interfaces.Balanceable;
+import chester.interfaces.Depositable;
+import chester.interfaces.Withdrawable;
+
+public class Account implements Depositable, Withdrawable, Balanceable {
+
+	public double balance;
+	
+	//Constructor
+	public Account() {
+		balance = 0;
+	}
+	
+	//Constructor with Parameters
+	public Account(double bal) {
+		balance = bal;
+	}
+	
+	//Implemented method
+	@Override
+	public double getBalance() {
+		// TODO Auto-generated method stub
+		return balance;
+	}
+
+	//Implemented method
+	@Override
+	public void setBalance(double amount) {
+		// TODO Auto-generated method stub
+		balance = amount; 
+		
+	}
+
+	//Implemented method
+	@Override
+	public void withdraw(double amount) {
+		// TODO Auto-generated method stub
+		//Subtract amount from the balance
+		balance = balance - amount;
+		
+	}
+
+	//Implemented method
+	@Override
+	public void deposit(double amount) {
+		// TODO Auto-generated method stub
+		//Add amount to balance
+		balance = balance + amount;
+	}
+
+	
+}
