@@ -1,0 +1,33 @@
+package chester.account;
+public class SavingsAccount extends Account {
+
+	public double monthlyIntRate;
+	public double monthlyPayment;
+
+	//Constructor with parameters
+	public SavingsAccount(double rate) {
+		// TODO Auto-generated method stub
+		this.monthlyIntRate = rate;
+	}
+	
+	//Method to Compute the payment and update balance
+	public void calculatePayment() {
+		double balance = getBalance();
+		monthlyPayment = balance * monthlyPayment;
+		balance = balance + monthlyPayment;
+		setBalance(balance);
+	}
+	
+	//Return Payment amount
+	public double getMonthlyPayment() {
+		
+		return monthlyPayment;
+	}
+	
+	public double getMonthlyIntRate() {
+		
+		return monthlyIntRate*100;
+	}
+	
+	
+}
