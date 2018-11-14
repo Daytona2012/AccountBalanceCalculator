@@ -1,0 +1,7 @@
+package chester.interfaces;
+
+public interface Depositable {
+
+	//Declare methods
+	public void deposit(double amount);
+}
