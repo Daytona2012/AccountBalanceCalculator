@@ -1,0 +1,239 @@
+package chester.app;
+
+import java.util.Scanner;
+
+import chester.interfaces.*;
+import chester.account.CheckingAccount;
+import chester.account.SavingsAccount;
+import chester.account.Transactions;
+import chester.presentation.Console;
+
+
+public class AccountBalanceApp {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		 Scanner sc = new Scanner(System.in);
+
+         //Prompt the user to enter the initial values.
+
+         System.out.println("Welcome to the Account application");
+         System.out.println();
+
+         System.out.print("Enter initial checking amount: ");
+
+         double check_amount = sc.nextDouble();
+
+         System.out.print("Enter initial saving amount: ");
+
+         double saving_amount = sc.nextDouble();
+
+         System.out.print("Enter checking fee: ");
+
+         double check_fee = sc.nextDouble();
+
+         CheckingAccount checkingAcc = new CheckingAccount(check_fee);
+
+         checkingAcc.setBalance(check_amount);
+
+         System.out.print("Enter Saving interest: ");
+
+         double saving_interest = sc.nextDouble();
+
+         SavingsAccount savingsAcc = new SavingsAccount(saving_interest);
+
+         savingsAcc.setBalance(saving_amount);
+
+         //Display the information.
+
+         System.out.println
+
+         ("\nOK! This is your information");
+
+         System.out.println
+
+         ("Checking Amount: "+ checkingAcc.getBalance());
+
+         System.out.println
+
+         ("Savings Amount: "+savingsAcc.getBalance());
+
+         System.out.println
+
+         ("Checking Fee: $"+checkingAcc.getMonthlyFee());
+
+         System.out.println
+
+         ("Interest Rate: "+
+
+         savingsAcc.getMonthlyIntRate()+"%");
+
+
+        //Declare the required variables.
+
+         char choice = ' ';
+         char trans;
+         char acc;
+         double amount;
+         int counter = 0;
+         System.out.println("\nEnter the transactions for the month");
+
+         while(true)
+
+         {
+
+               //Prompt the user to enter the input.
+
+               System.out.print("\nWithdrawal or deposit? (w/d): ");
+               trans = sc.next().charAt(0);
+
+               System.out.print("Checking or savings? (c/s): ");
+               acc = sc.next().charAt(0);
+
+               System.out.print("Amount?: ");
+               amount = sc.nextDouble();
+
+               //Check the user input and call the respective methods.
+
+               if(trans == 'w')
+
+               {
+
+                    if(acc == 'c')
+
+                    {
+
+
+                if(Console.compare(checkingAcc.getBalance(),amount))
+
+                          {
+                                Transactions.withdraw(checkingAcc, amount);
+                               //Increment the counter for checking account.
+                               ++counter;
+                          }
+
+                    }
+
+                    else if(acc == 's')
+
+                    {
+                    	
+                          if(Console.compare(savingsAcc.getBalance(),amount))
+
+                          {
+                                Transactions.withdraw(savingsAcc, amount);
+
+                          }
+
+                    }  else {
+                          System.out.println("Invalid account type.");
+                    }
+
+               }
+
+               else if(trans == 'd')
+
+               {
+
+                    if(acc == 'c')
+
+                    {
+                          //Validate the amount and call the methods.
+                          if(Console.check(amount))
+
+                          {
+                                Transactions.deposit(checkingAcc, amount);
+                               //Increment the counter checking account.
+                               ++counter;
+                          }
+
+                    }
+
+                    else if(acc == 's')
+
+                    {
+                          //Validate the amount and call the methods.
+                          if(Console.check(amount))
+                        	  
+                          {
+                                Transactions.deposit(savingsAcc, amount);
+                          }
+
+                    }
+
+                    //Display the error message.
+
+                    else
+
+                    {
+                          System.out.println("Invalid account type.");
+                    }
+
+               }
+
+               //Display the error message.
+
+               else
+
+               {
+                    System.out.println("Invalid transaction type.");
+               }
+
+              
+
+               System.out.print("\nContinue? (y/n): ");
+               choice = sc.next().charAt(0);
+
+              //Break the loop if user enters 'n'.
+
+               if(choice == 'n' || choice == 'N')
+
+               {
+
+                    break;
+
+               }
+
+         }
+
+         //Call the methods to compute the values.
+
+         savingsAcc.calculatePayment();
+
+         checkingAcc.setMonthlyFee(counter*checkingAcc.getMonthlyFee());
+
+         checkingAcc.subtractMonthlyFee();
+
+        
+         //Print the final values.
+
+         System.out.println("\nMonthly Payments and Fees");
+
+         System.out.println
+
+         ("Checking fee: $"+checkingAcc.getMonthlyFee());
+
+         System.out.println("Savings interest payment: $"
+
+         + savingsAcc.getMonthlyPayment());
+
+         System.out.println("\nFinal Balances");
+
+         System.out.println
+
+         ("Checking: $"+checkingAcc.getBalance());
+
+         System.out.println
+
+         ("Savings: $"+savingsAcc.getBalance());
+
+        
+
+         //Close the scanner object.
+
+         sc.close();
+
+	}
+
+}
