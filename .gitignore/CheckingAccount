@@ -1,0 +1,30 @@
+package chester.account;
+public class CheckingAccount extends Account {
+	
+	private double monthlyFee;
+
+	//Constructor with parameter
+	public CheckingAccount(double fees) {
+		
+		this.monthlyFee = fees;
+	}
+	
+	//Subtract monthly fees
+	public void subtractMonthlyFee() {
+		// TODO Auto-generated method stub
+		double newBalance = getBalance() - monthlyFee;
+		setBalance(newBalance);
+	}
+
+	// Get monthly fee
+	public double getMonthlyFee() {
+		
+		return monthlyFee;
+	}
+	
+	//Set the monthly fee
+	public void setMonthlyFee(double monthlyFee) {
+		this.monthlyFee = monthlyFee;
+	}
+
+}
